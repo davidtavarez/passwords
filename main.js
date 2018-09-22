@@ -1,5 +1,6 @@
 $(document).ready(function() {
     new ClipboardJS('#copy-button');
+    
     $("#GeneratePassword").click(function() {
         var length = $("input[name='length']:checked").val();
         $("#password").val(GenerateRandomPassword(length));
