@@ -1,2 +1,2 @@
 # passwords
-Online password generator
+Online password generator [https://davidtavarez.github.io/passwords/](https://davidtavarez.github.io/passwords/)
