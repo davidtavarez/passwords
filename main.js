@@ -7,7 +7,7 @@ $(document).ready(function() {
     });
 
     function GenerateRandomPassword(length = 24) {
-        var chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890";
+        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~";
         var password = "";
         for (var x = 0; x < length; x++) {
             var i = Math.floor(Math.random() * chars.length);
