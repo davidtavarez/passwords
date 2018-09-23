@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    var slider = document.getElementById("randomPasswordLength");
+    var output = $("#randomPassword");
+    var length = $("#randomPasswordLengthValue");
+
     new ClipboardJS('#copyButton');
     
     hsimp({
@@ -8,13 +12,9 @@ $(document).ready(function() {
             ok: 31557600 // 1 year
         },
         outputTime: function (time, input) {
-            console.log(time);
+            $("#time").html(time);
         }
     }, document.getElementById("randomPassword"));
-
-    var slider = document.getElementById("randomPasswordLength");
-    var output = $("#randomPassword");
-    var length = $("#randomPasswordLengthValue");
     
     length.html(slider.value);
     output.val(GenerateRandomPassword(slider.value));

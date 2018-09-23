@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Online password generator">
         <meta name="author" content="David Tavarez">
-        <title>Secure passwords</title>
+        <title>Generate secure password</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -13,23 +13,20 @@
     </head>
     <body>
         <main role="main" class="container">
-            <form>
-                <div class="form-row">
-                    <label for="randomPasswordLength">Pasword Length: <span id="randomPasswordLengthValue"></span></label>
-                    <input type="text" class="form-control input-group-sm" readonly value="0"/>
-                    <input type="range" class="custom-range" min="0" max="56" step="4" value="4" id="randomPasswordLength">
-                    <input type="text" class="form-control input-group-sm" readonly value="56"/>
+            <div class="form-group">
+                <div class="input-group-append">
+                <input type="text" id="randomPassword" class="form-control form-control-lg" aria-describedby="crackTime" placeholder="Generated password"/>
+                    <button type="button" id="generatePassword" class="btn btn-outline-secondary">Generate</button>
+                    <button type="button" id="copyButton" class="btn btn-outline-secondary" data-clipboard-target="#randomPassword">Copy</button>
                 </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <input type="text" id="randomPassword" class="form-control"/>
-                        <div class="input-group-append">
-                            <button type="button" id="generatePassword" class="btn btn-outline-secondary">Generate</button>
-                            <button type="button" id="copyButton" class="btn btn-outline-secondary" data-clipboard-target="#randomPassword">Copy</button>
-                        </div>
-                    </div>
+                <small id="passwordCrackTime" class="form-text text-muted">It would take a computer about <span id="time"></span> to crack your password</small>                
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="randomPasswordLength">Length: <span id="randomPasswordLengthValue"></span></label>
+                <div class="col-sm-6">
+                    <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="8" id="randomPasswordLength">
                 </div>
-            </form>
+            </div>
         </main>
         <footer class="footer">
             <div class="container">
