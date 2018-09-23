@@ -13,15 +13,19 @@ $(document).ready(function() {
     }, document.getElementById("randomPassword"));
 
     var slider = document.getElementById("randomPasswordLength");
-    var output = document.getElementById("randomPassword");
-    var length = document.getElementById("randomPasswordLengthValue");
+    var output = $("#randomPassword");
+    var length = $("#randomPasswordLengthValue");
     
-    length.innerHTML = slider.value;
-    output.value = GenerateRandomPassword(slider.value);
+    length.html(slider.value);
+    output.val(GenerateRandomPassword(slider.value));
     slider.oninput = function() {
-        length.innerHTML = this.value;
-        output.value = GenerateRandomPassword(this.value);
+        length.html(this.value);
+        output.val(GenerateRandomPassword(this.value));
     }
+
+    $("#generatePassword").click( function(){
+        output.val(GenerateRandomPassword(slider.value));
+    });
 
     function GenerateRandomPassword(length = 24) {
         var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~";
