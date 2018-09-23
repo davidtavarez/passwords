@@ -8,81 +8,39 @@
         <title>Strong Password Generator</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/hsimp.css">
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-7">
-                    <h4>Random Password Generator</h4>
-                    <form class="form-horizontal">
-                        <fieldset>
-                        <div class="input-group">
-                            <label class="col-md-3 control-label" for="radios">Pasword Length:</label>
-                            <div class="col">
-                                <label class="radio-inline" for="radios-4">
-                                <input name="length" id="radios-12" value="4" type="radio">
-                                4
-                                </label>
-                                <label class="radio-inline" for="radios-6">
-                                <input name="length" id="radios-6" value="6" type="radio">
-                                6
-                                </label>
-                                <label class="radio-inline" for="radios-8">
-                                <input name="length" id="radios-8" value="8" type="radio">
-                                8
-                                </label>
-                                <label class="radio-inline" for="radios-12">
-                                <input name="length" id="radios-12" value="12" type="radio">
-                                12
-                                </label>
-                                <label class="radio-inline" for="radios-12">
-                                <input name="length" id="radios-12" value="12" type="radio">
-                                16
-                                </label>
-                                <label class="radio-inline" for="radios-24">
-                                <input name="length" id="radios-24" value="24" checked="checked" type="radio">
-                                24
-                                </label> 
-                                <label class="radio-inline" for="radios-32">
-                                <input name="length" id="radios-32" value="32" type="radio">
-                                32
-                                </label> 
-                                <label class="radio-inline" for="radios-48">
-                                <input name="length" id="radios-48" value="48" type="radio">
-                                48
-                                </label> 
-                                <label class="radio-inline" for="radios-56">
-                                <input name="length" id="radios-56" value="56" type="radio">
-                                56
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col input-group">
-                                <input type="text" class="form-control" id="password" readonly />
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="copy-button" data-clipboard-target="#password">
-                                    <span class="fa fa-clipboard"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col">
-                                <button type="button" id="GeneratePassword" class="btn btn-primary">Generate Password</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-5 text-justify">
-                    <p>Random passwords consist of a <strong>string of symbols</strong> of specified <strong>length</strong> taken from a set of symbols using a random selection process in which each symbol is equally likely to be selected. People say that a good password should be 8 or 12 characters long, but I truly recommended to set a minimum length of <strong>24</strong>. <i>Note: some services have a maximum amount of characters less than 16.</i></p>
+        <main role="main" class="container">
+            <form>
+            <div class="form-row">
+                    <label for="randomPasswordLength">Pasword Length: <span id="randomPasswordLengthValue"></span></label>
+                    <input type="text" class="form-control input-group-sm" readonly value="0"/>
+                    <input type="range" class="custom-range" min="0" max="56" step="4" value="4" id="randomPasswordLength">
+                    <input type="text" class="form-control input-group-sm" readonly value="56"/>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <input type="text" id="randomPassword" class="form-control"/>
+                    <div class="input-group-append">
+                    <button type="button" id="generatePassword" class="btn btn-outline-secondary">Generate</button>
+                    <button type="button" id="copyButton" class="btn btn-outline-secondary" data-clipboard-target="#randomPassword">Copy</button>
+                    </div>
                 </div>
             </div>
-        </div>
+            </form>
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v2.0.0/dist/clipboard.min.js"></script>
-        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="js/hsimp.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
