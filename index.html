@@ -13,18 +13,19 @@
     </head>
     <body>
         <main role="main" class="container">
+            <h4>Generate random password</h4>
             <div class="form-group">
                 <div class="input-group-append">
                 <input type="text" id="randomPassword" class="form-control form-control-lg" aria-describedby="crackTime" placeholder="Generated password"/>
-                    <button type="button" id="generatePassword" class="btn btn-outline-secondary">Generate</button>
-                    <button type="button" id="copyButton" class="btn btn-outline-secondary" data-clipboard-target="#randomPassword">Copy</button>
+                    <button type="button" id="generatePassword" class="btn btn-outline-secondary"><i class="fa fa-refresh"></i> Genereate</button>
+                    <button type="button" id="copyButton" class="btn btn-outline-secondary" data-clipboard-target="#randomPassword"><i class="fa fa-copy"></i> Copy</button>
                 </div>
                 <small id="passwordCrackTime" class="form-text text-muted">It would take a computer about <span id="time"></span> to crack your password</small>                
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="randomPasswordLength">Length: <span id="randomPasswordLengthValue"></span></label>
                 <div class="col-sm-6">
-                    <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="8" id="randomPasswordLength">
+                    <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="10" id="randomPasswordLength">
                 </div>
             </div>
         </main>
