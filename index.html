@@ -25,8 +25,20 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="randomPasswordLength">Length: <span id="randomPasswordLengthValue"></span></label>
                 <div class="col-sm-6">
-                    <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="10" id="randomPasswordLength">
+                    <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="12" id="randomPasswordLength">
                 </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="type" type="radio" id="typeLetters" value="letters">
+                    <label class="form-check-label" for="typeLetters">Letters</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="type" type="radio" id="typeAlpha" value="alphanumeric">
+                    <label class="form-check-label" for="typeAlpha">Alphanumeric</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="type" type="radio" id="typeComplex" value="complex" checked>
+                    <label class="form-check-label" for="typeComplex">Complex</label>
+                  </div>
             </div>
         </main>
         <footer class="footer">

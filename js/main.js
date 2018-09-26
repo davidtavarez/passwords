@@ -1,40 +1,65 @@
-$(document).ready(function() {
-    var slider = document.getElementById("randomPasswordLength");
-    var output = $("#randomPassword");
-    var length = $("#randomPasswordLengthValue");
+function GenerateRandomPassword(length = 24, type = "complex") {
+    var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ";
+    var alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890";
+    var complex = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~";
+    var password = "";
 
+    var chars = complex;
+
+    switch (type) {
+        case "letters":
+            chars = letters;
+            break;
+        case "alphanumeric":
+            chars = alphanumeric;
+            break;
+    }
+
+    for (var x = 0; x < length; x++) {
+        var i = Math.floor(Math.random() * chars.length);
+        password += chars.charAt(i);
+    }
+
+    return password;
+}
+
+function GetSelectedRadio(radios) {
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            return radios[i].value;
+        }
+    }
+}
+
+$(document).ready(function() {
     new ClipboardJS('#copyButton');
 
     hsimp({
         options: {
             calculationsPerSecond: 1e10, // 10 billion,
-            good: 31557600e3, // 1,000 years
-            ok: 31557600 // 1 year
+            good: 31557600e6, // 1,000,000 years
+            ok: 31557600e2 // 100 year
         },
         outputTime: function(time, input) {
             $("#time").html(time);
         }
     }, document.getElementById("randomPassword"));
 
-    length.html(slider.value);
-    output.val(GenerateRandomPassword(slider.value));
-
-    slider.oninput = function() {
-        length.html(this.value);
-        output.val(GenerateRandomPassword(this.value));
+    document.getElementById("randomPasswordLength").oninput = function() {
+        document.getElementById("randomPasswordLengthValue").innerText = this.value;
+        document.getElementById("randomPassword").value = GenerateRandomPassword(this.value, GetSelectedRadio(document.getElementsByName("type")));
+        /* Tiggering keyup event, vanillay way */
+        document.getElementById("randomPassword").dispatchEvent(new Event('keyup'));
     }
-
     $("#generatePassword").click(function() {
-        output.val(GenerateRandomPassword(slider.value));
+        document.getElementById("randomPassword").value = GenerateRandomPassword(document.getElementById("randomPasswordLength").value);
+        /* Tiggering keyup event, vanillay way */
+        document.getElementById("randomPassword").dispatchEvent(new Event('keyup'));
     });
 
-    function GenerateRandomPassword(length = 24) {
-        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~";
-        var password = "";
-        for (var x = 0; x < length; x++) {
-            var i = Math.floor(Math.random() * chars.length);
-            password += chars.charAt(i);
-        }
-        return password;
-    }
+    document.getElementById("randomPasswordLengthValue").innerText = document.getElementById("randomPasswordLength").value;
+    document.getElementById("randomPassword").value = document.getElementById("randomPassword").value = GenerateRandomPassword(this.value, GetSelectedRadio(document.getElementsByName("type")));
+
+    /* Tiggering keyup event, vanillay way */
+    document.getElementById("randomPassword").dispatchEvent(new Event('keyup'));
 });
