@@ -29,7 +29,9 @@ code {
 #time {
   font-size: 200%;
 }
-#randomPasswordLengthValue,
-#time {
-  font-weight: bold;
+
+.form-control:read-only,
+.form-control[readonly] {
+  background: rgba(200, 200, 200, 0.5);
+  color: #323232;
 }
