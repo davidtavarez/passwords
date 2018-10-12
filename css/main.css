@@ -30,8 +30,32 @@ code {
   font-size: 200%;
 }
 
+.input-group {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.input-group .btn {
+  border: 0;
+}
+
 .form-control:read-only,
 .form-control[readonly] {
   background: rgba(200, 200, 200, 0.5);
   color: #323232;
+  border: 0;
+}
+
+.form-control.hsimp-level--bad,
+.form-control.hsimp-level--insecure {
+  background-color: #c63136;
+  color: #fff;
+}
+.form-control.hsimp-level--ok {
+  background-color: #de7b46;
+  color: #fff;
+}
+.form-control.hsimp-level--good {
+  background-color: #2f8249;
+  color: #fff;
 }
