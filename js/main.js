@@ -9,20 +9,18 @@
       complex: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
     }
     const chars = Dictionaries[type] || Dictionaries['complex']
-
-    let password = ''
-
-    for (let x = 0; x < length; x++) {
-      let i = Math.floor(Math.random() * chars.length)
-      password += chars.charAt(i)
-    }
-
-    return password
+    const size = Number(length) || 12
+    console.log(type, chars)
+    return Array(size)
+      .fill(0)
+      .reduce((prev, _) => prev.concat(chars.charAt(randomIndex(chars.length))), '')
   }
+
+  const randomIndex = seed => Math.floor(Math.random() * seed)
 
   const initClipboard = selector => new ClipboardJS(selector)
 
-  const getActiveRadio = radios => [...radios].find(radio => radio.checked1) || {}
+  const getActiveRadio = radios => [...radios].find(radio => radio.checked) || {}
 
   const initHSIMP = (selectorId, outputEl) =>
     hsimp(
