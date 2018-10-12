@@ -50,6 +50,8 @@
     const triggerPasswordChange = () => triggerEvent(GeneratedPasswordInput, 'keyup')
     const getPasswordType = () => getActiveRadio(PasswordType).value
 
+    PasswordType.forEach(el => el.addEventListener('click', () => triggerEvent(PasswordLengthInput, 'input')))
+
     PasswordLengthInput.addEventListener('input', event => {
       const length = event.target.value
       const type = getPasswordType()
