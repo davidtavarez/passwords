@@ -1,37 +1,36 @@
-function GenerateRandomPassword(length = 24, type = 'complex') {
-  var letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ'
-  var alphanumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890'
-  var complex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
-  var password = ''
+document.addEventListener('DOMContentLoaded', function onDocumentReady() {
+  function GenerateRandomPassword(length = 24, type = 'complex') {
+    var letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ'
+    var alphanumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890'
+    var complex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
+    var password = ''
 
-  var chars = complex
+    var chars = complex
 
-  switch (type) {
-    case 'letters':
-      chars = letters
-      break
-    case 'alphanumeric':
-      chars = alphanumeric
-      break
+    switch (type) {
+      case 'letters':
+        chars = letters
+        break
+      case 'alphanumeric':
+        chars = alphanumeric
+        break
+    }
+
+    for (var x = 0; x < length; x++) {
+      var i = Math.floor(Math.random() * chars.length)
+      password += chars.charAt(i)
+    }
+
+    return password
   }
 
-  for (var x = 0; x < length; x++) {
-    var i = Math.floor(Math.random() * chars.length)
-    password += chars.charAt(i)
-  }
-
-  return password
-}
-
-function GetSelectedRadio(radios) {
-  for (var i = 0, length = radios.length; i < length; i++) {
-    if (radios[i].checked) {
-      return radios[i].value
+  function GetSelectedRadio(radios) {
+    for (var i = 0, length = radios.length; i < length; i++) {
+      if (radios[i].checked) {
+        return radios[i].value
+      }
     }
   }
-}
-
-$(document).ready(function() {
   new ClipboardJS('#copyButton')
 
   hsimp(
@@ -42,7 +41,7 @@ $(document).ready(function() {
         ok: 31557600e2 // 100 year
       },
       outputTime: function(time, input) {
-        $('#time').html(time || 'instantly')
+        document.querySelector('#time').innerHTML = time || 'instantly'
       }
     },
     document.getElementById('randomPassword')
@@ -57,7 +56,7 @@ $(document).ready(function() {
     /* Tiggering keyup event, vanillay way */
     document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
   }
-  $('#generatePassword').submit(function(event) {
+  document.querySelector('#generatePassword').addEventListener('submit', function(event) {
     event.preventDefault()
     document.getElementById('randomPassword').value = GenerateRandomPassword(
       document.getElementById('randomPasswordLength').value
