@@ -9,8 +9,8 @@
       complex: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
     }
     const chars = Dictionaries[type] || Dictionaries['complex']
-    const size = Number(length) || 12
-    console.log(type, chars)
+    const size = Number(length) || 0
+    const charsLength = chars.length
     return Array(size)
       .fill(0)
       .reduce((prev, _) => prev.concat(chars.charAt(randomIndex(chars.length))), '')
