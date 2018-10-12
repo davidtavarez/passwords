@@ -1,5 +1,6 @@
 'use srtrict'
 ;(function App() {
+  document.addEventListener('DOMContentLoaded', onDocumentReady) // thanks to the hoisting power
   function GenerateRandomPassword(length = 24, type = 'complex') {
     var letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ'
     var alphanumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890'
@@ -25,29 +26,38 @@
     return password
   }
 
-  document.addEventListener('DOMContentLoaded', function onDocumentReady() {
-    function GetSelectedRadio(radios) {
-      for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {
-          return radios[i].value
-        }
+  function initClipboard(selector) {
+    return new ClipboardJS(selector)
+  }
+
+  // TODO: use radiobuttons the right way
+  function GetSelectedRadio(radios) {
+    for (var i = 0, length = radios.length; i < length; i++) {
+      if (radios[i].checked) {
+        return radios[i].value
       }
     }
-    new ClipboardJS('#copyButton')
+  }
 
-    hsimp(
+  function initHSIMP(selectorId) {
+    return hsimp(
       {
         options: {
           calculationsPerSecond: 1e10, // 10 billion,
           good: 31557600e6, // 1,000,000 years
           ok: 31557600e2 // 100 year
         },
-        outputTime: function(time, input) {
+        outputTime: function(time) {
           document.querySelector('#time').innerHTML = time || 'instantly'
         }
       },
-      document.getElementById('randomPassword')
+      document.getElementById(selectorId)
     )
+  }
+
+  function onDocumentReady() {
+    initClipboard('#copyButton')
+    initHSIMP('randomPassword')
 
     document.getElementById('randomPasswordLength').addEventListener('input', function() {
       document.getElementById('randomPasswordLengthValue').innerText = this.value
@@ -76,5 +86,5 @@
 
     /* Tiggering keyup event, vanillay way */
     document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
-  })
+  }
 })()
