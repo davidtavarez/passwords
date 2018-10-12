@@ -1,76 +1,76 @@
-function GenerateRandomPassword(length = 24, type = 'complex') {
-  var letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ'
-  var alphanumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890'
-  var complex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
-  var password = ''
+'use srtrict'
+;(function App() {
+  // this function wouldn't be a anonymous function for debugging purposes
+  document.addEventListener('DOMContentLoaded', onDocumentReady) // thanks to the hoisting power
 
-  var chars = complex
-
-  switch (type) {
-    case 'letters':
-      chars = letters
-      break
-    case 'alphanumeric':
-      chars = alphanumeric
-      break
-  }
-
-  for (var x = 0; x < length; x++) {
-    var i = Math.floor(Math.random() * chars.length)
-    password += chars.charAt(i)
-  }
-
-  return password
-}
-
-function GetSelectedRadio(radios) {
-  for (var i = 0, length = radios.length; i < length; i++) {
-    if (radios[i].checked) {
-      return radios[i].value
+  const randomIndex = seed => Math.floor(Math.random() * seed)
+  const GenerateRandomPassword = (length = 12, type = 'complex') => {
+    const Dictionaries = {
+      letters: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ',
+      alphanumeric: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890',
+      complex: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
     }
+    const chars = Dictionaries[type] || Dictionaries['complex']
+    const size = Number(length) || 0
+    const charsLength = chars.length
+    return Array(size)
+      .fill(0)
+      .reduce(prev => prev.concat(chars.charAt(randomIndex(charsLength))), '')
   }
-}
 
-$(document).ready(function() {
-  new ClipboardJS('#copyButton')
+  const initClipboard = selector => new ClipboardJS(selector)
 
-  hsimp(
-    {
-      options: {
-        calculationsPerSecond: 1e10, // 10 billion,
-        good: 31557600e6, // 1,000,000 years
-        ok: 31557600e2 // 100 year
+  const getActiveRadio = radios => [...radios].find(radio => radio.checked) || {}
+
+  const initHSIMP = (passwordElement, outputElement) =>
+    hsimp(
+      {
+        options: {
+          calculationsPerSecond: 1e10, // 10 billion,
+          good: 31557600e6, // 1,000,000 years
+          ok: 31557600e2 // 100 year
+        },
+        outputTime: time => (outputElement.innerHTML = time || 'instantly')
       },
-      outputTime: function(time, input) {
-        $('#time').html(time || 'instantly')
-      }
-    },
-    document.getElementById('randomPassword')
-  )
-
-  document.getElementById('randomPasswordLength').oninput = function() {
-    document.getElementById('randomPasswordLengthValue').innerText = this.value
-    document.getElementById('randomPassword').value = GenerateRandomPassword(
-      this.value,
-      GetSelectedRadio(document.getElementsByName('type'))
+      passwordElement
     )
-    /* Tiggering keyup event, vanillay way */
-    document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
+
+  const triggerEvent = (element, eventType) => element.dispatchEvent(new Event(eventType))
+
+  function onDocumentReady() {
+    initClipboard('#copyButton')
+    initHSIMP(document.getElementById('randomPassword'), document.getElementById('time'))
+
+    const PasswordLengthInput = document.getElementById('randomPasswordLength')
+    const PasswordLengthLabel = document.getElementById('randomPasswordLengthLabel')
+    const GeneratedPasswordInput = document.getElementById('randomPassword')
+    const PasswordGenerator = document.querySelector('#generatePassword')
+    const PasswordType = document.getElementsByName('type')
+
+    const triggerPasswordChange = () => triggerEvent(GeneratedPasswordInput, 'keyup')
+    const getPasswordType = () => getActiveRadio(PasswordType).value
+
+    PasswordType.forEach(el => el.addEventListener('click', () => triggerEvent(PasswordLengthInput, 'input')))
+
+    PasswordLengthInput.addEventListener('input', event => {
+      const length = event.target.value
+      const type = getPasswordType()
+      PasswordLengthLabel.innerText = length
+      GeneratedPasswordInput.value = GenerateRandomPassword(length, type)
+      triggerPasswordChange()
+    })
+    PasswordGenerator.addEventListener('submit', event => {
+      event.preventDefault()
+      const length = PasswordLengthInput.value
+      const type = getPasswordType()
+      GeneratedPasswordInput.value = GenerateRandomPassword(length, type)
+      triggerPasswordChange()
+    })
+
+    PasswordLengthLabel.innerText = PasswordLengthInput.value
+    GeneratedPasswordInput.value = GenerateRandomPassword(undefined, getPasswordType())
+
+    // Trigger the first 'onChange' like event to update the view
+    triggerPasswordChange()
   }
-  $('#generatePassword').submit(function(event) {
-    event.preventDefault()
-    document.getElementById('randomPassword').value = GenerateRandomPassword(
-      document.getElementById('randomPasswordLength').value
-    )
-    /* Tiggering keyup event, vanillay way */
-    document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
-  })
-
-  document.getElementById('randomPasswordLengthValue').innerText = document.getElementById('randomPasswordLength').value
-  document.getElementById('randomPassword').value = document.getElementById(
-    'randomPassword'
-  ).value = GenerateRandomPassword(this.value, GetSelectedRadio(document.getElementsByName('type')))
-
-  /* Tiggering keyup event, vanillay way */
-  document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
-})
+})()
