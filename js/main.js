@@ -42,7 +42,7 @@ $(document).ready(function() {
         ok: 31557600e2 // 100 year
       },
       outputTime: function(time, input) {
-        $('#time').html(time)
+        $('#time').html(time || 'instantly')
       }
     },
     document.getElementById('randomPassword')
@@ -57,7 +57,8 @@ $(document).ready(function() {
     /* Tiggering keyup event, vanillay way */
     document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
   }
-  $('#generatePassword').click(function() {
+  $('#generatePassword').submit(function(event) {
+    event.preventDefault()
     document.getElementById('randomPassword').value = GenerateRandomPassword(
       document.getElementById('randomPasswordLength').value
     )
