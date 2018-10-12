@@ -1,14 +1,13 @@
 'use srtrict'
 ;(function App() {
   document.addEventListener('DOMContentLoaded', onDocumentReady) // thanks to the hoisting power
-  function GenerateRandomPassword(length = 24, type = 'complex') {
+  function GenerateRandomPassword(length = 12, type = 'complex') {
     var letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ'
     var alphanumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890'
     var complex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890!#$%&()*+,-./:;<=>?@[]^_{|}~'
     var password = ''
 
     var chars = complex
-
     switch (type) {
       case 'letters':
         chars = letters
@@ -31,12 +30,12 @@
   }
 
   // TODO: use radiobuttons the right way
-  function GetSelectedRadio(radios) {
-    for (var i = 0, length = radios.length; i < length; i++) {
-      if (radios[i].checked) {
-        return radios[i].value
-      }
-    }
+  function getActiveRadio(radios) {
+    return (
+      [...radios].find(function FilterRadios(radio) {
+        return radio.checked
+      }) || {}
+    )
   }
 
   function initHSIMP(selectorId) {
@@ -55,36 +54,45 @@
     )
   }
 
+  function triggerEvent(element, eventType) {
+    return element.dispatchEvent(new Event(eventType))
+  }
+
   function onDocumentReady() {
-    initClipboard('#copyButton')
-    initHSIMP('randomPassword')
+    const copyPasswordClipboard = initClipboard('#copyButton')
+    const hsimpListenner = initHSIMP('randomPassword')
 
-    document.getElementById('randomPasswordLength').addEventListener('input', function() {
-      document.getElementById('randomPasswordLengthValue').innerText = this.value
-      document.getElementById('randomPassword').value = GenerateRandomPassword(
-        this.value,
-        GetSelectedRadio(document.getElementsByName('type'))
-      )
-      /* Tiggering keyup event, vanillay way */
-      document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
+    const PasswordLengthInput = document.getElementById('randomPasswordLength')
+    const PasswordLengthLabel = document.getElementById('randomPasswordLengthLabel')
+    const GeneratedPasswordInput = document.getElementById('randomPassword')
+    const PasswordGenerator = document.querySelector('#generatePassword')
+    const PasswordType = document.getElementsByName('type')
+
+    function triggerPasswordChange() {
+      return triggerEvent(GeneratedPasswordInput, 'keyup')
+    }
+    function getPasswordType() {
+      return getActiveRadio(PasswordType).value
+    }
+
+    PasswordLengthInput.addEventListener('input', function(event) {
+      const length = event.target.value
+      PasswordLengthLabel.innerText = length
+      GeneratedPasswordInput.value = GenerateRandomPassword(length, getPasswordType())
+      triggerPasswordChange()
     })
-    document.querySelector('#generatePassword').addEventListener('submit', function(event) {
+    PasswordGenerator.addEventListener('submit', function(event) {
       event.preventDefault()
-      document.getElementById('randomPassword').value = GenerateRandomPassword(
-        document.getElementById('randomPasswordLength').value
-      )
-      /* Tiggering keyup event, vanillay way */
-      document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
+      const length = PasswordLengthInput.value
+      const type = getPasswordType()
+      GeneratedPasswordInput.value = GenerateRandomPassword(length, type)
+      triggerPasswordChange()
     })
 
-    document.getElementById('randomPasswordLengthValue').innerText = document.getElementById(
-      'randomPasswordLength'
-    ).value
-    document.getElementById('randomPassword').value = document.getElementById(
-      'randomPassword'
-    ).value = GenerateRandomPassword(this.value, GetSelectedRadio(document.getElementsByName('type')))
+    PasswordLengthLabel.innerText = PasswordLengthInput.value
+    GeneratedPasswordInput.value = GeneratedPasswordInput.value = GenerateRandomPassword(undefined, getPasswordType())
 
-    /* Tiggering keyup event, vanillay way */
-    document.getElementById('randomPassword').dispatchEvent(new Event('keyup'))
+    // Trigger the first 'onChange' like event to update the view
+    triggerPasswordChange()
   }
 })()
