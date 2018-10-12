@@ -36,7 +36,9 @@ code {
 }
 
 .input-group .btn {
+  background: transparent;
   border: 0;
+  color: #323231;
 }
 
 .form-control:read-only,
