@@ -23,7 +23,6 @@
 }
 
 .nav__link {
-  border-radius: 2em;
   color: #fff;
   flex: 1;
   padding: 8px 16px;
@@ -32,8 +31,12 @@
   will-change: background-color;
 }
 
-.nav__link:not(:last-of-type){
-  margin-right: 8px;
+.nav__link:first-of-type {
+  border-radius: 2em 0 0 2em;
+}
+
+.nav__link:last-of-type {
+  border-radius: 0 2em 2em 0;
 }
 
 .nav__link:hover,
