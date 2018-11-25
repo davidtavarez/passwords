@@ -23,18 +23,18 @@
       .reduce(prev => prev.concat(chars.charAt(randomIndex(charsLength))), '')
   }
 
-  const initHSIMP = (passwordElement, outputElement) =>
-    hsimp(
-      {
-        options: {
-          calculationsPerSecond: 1e10, // 10 billion,
-          good: 31557600e6, // 1,000,000 years
-          ok: 31557600e2, // 100 year
-        },
-        outputTime: time => (outputElement.innerHTML = time || 'instantly'),
+  const initHSIMP = (OutputElement, InfoElement) =>
+    hsimp({
+      options: {
+        calculationsPerSecond: 1e10, // 10 billion,
+        good: 31557600e6, // 1,000,000 years
+        ok: 7776000, // 3 moths
       },
-      passwordElement
-    )
+      outputTime: time => (OutputElement.innerHTML = time || 'instantly'),
+      outputChecks: checks => {
+        InfoElement.innerHTML = generateInfoMessages(checks)
+      },
+    })
 
   const triggerEvent = (element, eventType) =>
     element.dispatchEvent(new Event(eventType))
@@ -46,9 +46,9 @@
   function onDocumentReady() {
     initClipboard('#copyButton')
     initHSIMP(
-      document.getElementById('randomPassword'),
-      document.getElementById('time')
-    )
+      document.getElementById('time'),
+      document.getElementById('alert')
+    )(document.getElementById('randomPassword'))
     initPasswordGenerator()
   }
 
@@ -95,4 +95,10 @@
     triggerPasswordChange()
   }
 
+  function generateInfoMessages(checks = []) {
+    return checks
+      .map(check => `<p><strong>${check.level}:</strong> ${check.message}</p>`)
+      .join('')
+      .trim('')
+  }
 })()
