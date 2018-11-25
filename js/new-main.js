@@ -23,6 +23,19 @@
       .reduce(prev => prev.concat(chars.charAt(randomIndex(charsLength))), '')
   }
 
+  const initHSIMP = (passwordElement, outputElement) =>
+    hsimp(
+      {
+        options: {
+          calculationsPerSecond: 1e10, // 10 billion,
+          good: 31557600e6, // 1,000,000 years
+          ok: 31557600e2, // 100 year
+        },
+        outputTime: time => (outputElement.innerHTML = time || 'instantly'),
+      },
+      passwordElement
+    )
+
   const triggerEvent = (element, eventType) =>
     element.dispatchEvent(new Event(eventType))
 
@@ -39,6 +52,10 @@
     })
 
     initClipboard('#copyButton')
+    initHSIMP(
+      document.getElementById('randomPassword'),
+      document.getElementById('time')
+    )
     initPasswordGenerator()
   }
 

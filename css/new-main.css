@@ -104,6 +104,54 @@
   height: 1em;
   width: 1em;
 }
+
+
+/* Bootstrap OW */
+.btn:active, .btn:focus, .input-group input {
+  box-shadow: none!important;
+  border: 0!important;
+  outline: 0!important;
+}
+.form-group .form-text {
+  padding: .5rem 1rem;
+  margin-top: 0;
+}
+.input-group {
+  border-radius: 2em;
+  box-shadow: 1px 1px 10px -2px rgba(0, 0, 0, 0.4);
+}
+
+.input-group:focus-within {
+  box-shadow: 1px 1px 12px 0px rgba(100, 100, 100, 0.9);
+}
+.input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+  border-radius: 2em 0 0 2em;
+}
+
+.input-group>.input-group-append:last-child,
+.input-group>.input-group-append:last-child .btn {
+  border-radius: 0 2em 2em 0;
+}
+
+.form-control.hsimp-level--bad {
+  background-color: #be3737;
+  color: #fff;
+}
+.form-control.hsimp-level--insecure {
+  background-color: #c7b198;
+  color: #fff;
+}
+.form-control.hsimp-level--ok {
+  background-color: #f87d42;
+  color: #fff;
+}
+.form-control.hsimp-level--good {
+  background-color: #1abb9c;
+  color: #fff;
+}
+
+
+/* Styles for custom-controls */
 .custom-control.fill-checkbox .fill-control-input {
   display: none;
 }
