@@ -1,0 +1,63 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px;
+  /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+body > .container {
+  padding: 60px 15px 0;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
+#time {
+  font-size: 200%;
+}
+
+.input-group {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.input-group .btn {
+  background: transparent;
+  border: 0;
+  color: #323231;
+}
+
+.form-control:read-only,
+.form-control[readonly] {
+  background: rgba(200, 200, 200, 0.5);
+  color: #323232;
+  border: 0;
+}
+
+.form-control.hsimp-level--bad,
+.form-control.hsimp-level--insecure {
+  background-color: #c63136;
+  color: #fff;
+}
+.form-control.hsimp-level--ok {
+  background-color: #de7b46;
+  color: #fff;
+}
+.form-control.hsimp-level--good {
+  background-color: #2f8249;
+  color: #fff;
+}
