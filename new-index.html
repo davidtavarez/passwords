@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="css/new-main.css" />
   </head>
   <body class="body">
-    <header class="header">
-      <h1>Strong password generator</h1>
+    <header class="header text-center">
+      <p class="text-muted">Password generator tool</p>
+      <h1 class="site-title">Strong password generator</h1>
+      <small class="text-muted">Use this tool to generate with one click secure random password</small>
     </header>
     <main class="main container">
       <div class="container-fluid">
@@ -27,7 +29,6 @@
                   id="randomPassword"
                   class="form-control form-control-lg"
                   aria-describedby="crackTime"
-                  readonly
                   placeholder="Generated password"
                 />
                 <div class="input-group-append">
@@ -79,7 +80,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-3">
+          <div class="col-6 col-sm-3">
             <div class="form-check form-check-inline">
               <label class="custom-control fill-checkbox">
                 <input
@@ -93,7 +94,7 @@
               </label>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-6 col-sm-3">
             <div class="form-check form-check-inline">
               <label class="custom-control fill-checkbox">
                 <input
@@ -106,7 +107,7 @@
               </label>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-6 col-sm-3">
             <div class="form-check form-check-inline">
               <label class="custom-control fill-checkbox">
                 <input
@@ -119,7 +120,7 @@
               </label>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-6 col-sm-3">
             <div class="form-check form-check-inline">
               <label class="custom-control fill-checkbox">
                 <input
@@ -134,6 +135,7 @@
           </div>
         </div>
       </form>
+      <code class="alert" id="alert"></code>
     </main>
     <footer class="footer">
       <div class="container">
