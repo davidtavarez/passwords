@@ -19,6 +19,7 @@ html {
 
 .header .site-title {
   font-size: 3rem;
+  margin-top: .25em;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
   text-transform: capitalize;
 }
@@ -28,6 +29,7 @@ html {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  position: relative;
 }
 
 .section {
@@ -177,6 +179,14 @@ code.alert:hover {
 
 
 /** media queries */
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 13px;
+  }
+  .body > .header {
+    margin-bottom: 2rem;
+  }
+}
 @media screen and (min-width: 480px) {
   .body {
     display: grid;
@@ -188,9 +198,13 @@ code.alert:hover {
 
 @media screen and (min-width: 960px) {
   code.alert {
-    position: fixed;
-    bottom: 0;
+    bottom: 1rem;
+    left: 50%;
+    margin: 0;
     max-width: 960px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
   }
 }
 
