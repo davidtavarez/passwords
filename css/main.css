@@ -5,8 +5,6 @@ html {
 .body {
   background-color: #393e46;
   color: white;
-  transition: background-color 350ms cubic-bezier(0.075, 0.82, 0.165, 1);
-  will-change: background-color;
 }
 
 .body > *:not(.footer) {
@@ -106,6 +104,11 @@ code.alert:hover {
   border-radius: 0 2em 2em 0;
 }
 
+.form-control {
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);;
+  will-change: background-color, color;
+}
+
 .form-control.hsimp-level--insecure {
   background-color: #be3737;
   color: #fff;
@@ -180,6 +183,14 @@ code.alert:hover {
     height: 100vh;
     grid-gap: 8px;
     grid-template-rows: 120px 1fr 30px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  code.alert {
+    position: fixed;
+    bottom: 0;
+    max-width: 960px;
   }
 }
 
