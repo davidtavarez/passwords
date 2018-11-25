@@ -45,10 +45,32 @@ body {
 .section.tab {
   display: none;
   height: 100%;
-  padding: 16px;
 }
 
 .section.tab:target,
 .section.tab.tab--active {
   display: block;
+}
+
+.footer {
+  background-color: rgba(100, 100, 100, .25);
+  padding: 8px 0;
+}
+
+.footer a,
+.footer a:hover,
+.footer a:active,
+.footer a:focus {
+  color: white;
+}
+
+.footer__copy {
+  font-size: 12px;
+}
+.footer__love {
+  display: inline-block;
+  fill: currentColor;
+  height: 1em;
+  vertical-align: middle;
+  width: 1em;
 }
