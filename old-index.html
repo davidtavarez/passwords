@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Online password generator">
+  <meta name="author" content="David Tavarez">
+  <title>Generate secure password</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Generate random password</h1>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Generated Password</label>
+      <div class="input-group">
+        <input type="text" id="randomPassword" class="form-control form-control-lg" aria-describedby="crackTime" readonly placeholder="Generated password" />
+        <div class="input-group-append">
+          <button type="button" id="copyButton" class="btn btn-secondary" data-clipboard-target="#randomPassword" aria-label="Copy">
+            <i class="fa fa-copy"></i>
+          </button>
+        </div>
+      </div>
+      <small id="passwordCrackTime" class="form-text text-muted">It would take a computer about <strong id="time"></strong> to crack your password</small>
+    </div>
+    <form id="generatePassword" action="#">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="randomPasswordLength">Length: <strong id="randomPasswordLengthLabel">12</strong></label>
+        <div class="col-sm-6">
+          <input type="range" class="form-control custom-range" min="0" max="56" step="1" value="12" id="randomPasswordLength">
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="type" type="radio" id="typeLetters" value="letters">
+          <label class="form-check-label" for="typeLetters">Letters</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="type" type="radio" id="typeAlpha" value="alphanumeric">
+          <label class="form-check-label" for="typeAlpha">Alphanumeric</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="type" type="radio" id="typeComplex" value="complex" checked>
+          <label class="form-check-label" for="typeComplex">Complex</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-refresh"></i>
+        Genereate
+      </button>
+    </form>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">Made with <i class="fa fa-heart"></i> by <a href="https://davidtavarez.github.io/">David Tavarez</a>.</span>
+    </div>
+  </footer>
+  <link rel="stylesheet" href="css/old-main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" async>
+  <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v2.0.0/dist/clipboard.min.js" defer></script>
+  <script type="text/javascript" src="js/hsimp.min.js" defer></script>
+  <script type="text/javascript" src="js/old-main.js" defer></script>
+</body>
+
+</html>
