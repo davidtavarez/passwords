@@ -2,14 +2,87 @@
 ;(function App() {
   // this function wouldn't be a anonymous function for debugging purposes
   document.addEventListener('DOMContentLoaded', onDocumentReady) // thanks to the hoisting power
+
+  const randomIndex = seed => Math.floor(Math.random() * seed)
+  const GenerateRandomPassword = (types = ['lowercase'], length = 12) => {
+    const DICTIONARIES = {
+      lowercase: 'abcdefghijklmnopqrstuvwxyz',
+      uppercase: 'ABCDEFGHIJKLMNOPQRSTUVXYZ',
+      numbers: '1234567890',
+      symbols: '!#$%&()*+,-./:;<=>?@[]^_{|}~',
+    }
+    const chars = types
+      .filter(Boolean)
+      .reduce((dic, key) => [...dic, DICTIONARIES[key] || ''], [])
+      .join('')
+      .trim()
+    const size = Number(length) || 0
+    const charsLength = chars.length
+    return Array(size)
+      .fill(0)
+      .reduce(prev => prev.concat(chars.charAt(randomIndex(charsLength))), '')
+  }
+
+  const triggerEvent = (element, eventType) =>
+    element.dispatchEvent(new Event(eventType))
+
+  const initClipboard = selector => new ClipboardJS(selector)
+  const getCheckboxValues = (checkboxes = []) =>
+    [...checkboxes].filter(c => c.checked).map(c => c.value)
+
   function onDocumentReady() {
     const NavLinks = document.querySelectorAll('.nav__link')
     NavLinks.forEach(Link => {
       Link.addEventListener('click', onNavLinkClick)
       // Load Initial State of the App
-      if (Link.href === window.location.href)
-        Link.dispatchEvent(new Event('click'))
+      if (Link.href === window.location.href) triggerEvent(Link, 'click')
     })
+
+    initClipboard('#copyButton')
+    initPasswordGenerator()
+  }
+
+  function initPasswordGenerator() {
+    const PasswordLengthInput = document.getElementById('randomPasswordLength')
+    const PasswordLengthLabel = document.getElementById(
+      'randomPasswordLengthLabel'
+    )
+    const GeneratedPasswordInput = document.getElementById('randomPassword')
+    const PasswordGenerator = document.querySelector('#generatePassword')
+    const PasswordTypes = document.querySelectorAll(
+      '.fill-control-input[type="checkbox"]'
+    )
+
+    const triggerPasswordChange = () =>
+      triggerEvent(GeneratedPasswordInput, 'keyup')
+    const getPasswordType = () => getCheckboxValues(PasswordTypes)
+
+    PasswordTypes.forEach(el =>
+      el.addEventListener('click', () =>
+        triggerEvent(PasswordLengthInput, 'input')
+      )
+    )
+
+    PasswordLengthInput.addEventListener('input', event => {
+      const length = event.target.value
+      const type = getPasswordType()
+      PasswordLengthLabel.innerText = length
+      GeneratedPasswordInput.value = GenerateRandomPassword(type, length)
+      triggerPasswordChange()
+    })
+    PasswordGenerator.addEventListener('submit', event => {
+      event.preventDefault()
+      const length = PasswordLengthInput.value
+      const type = getPasswordType()
+      GeneratedPasswordInput.value = GenerateRandomPassword(type, length)
+      triggerPasswordChange()
+    })
+
+    PasswordLengthLabel.innerText = PasswordLengthInput.value
+    GeneratedPasswordInput.value = GenerateRandomPassword(getPasswordType())
+
+    // Trigger the first 'onChange' like event to update the view
+    triggerPasswordChange()
   }
 
   function onNavLinkClick(event) {
